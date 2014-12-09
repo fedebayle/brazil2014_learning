@@ -42,23 +42,23 @@ data<-data[complete.cases(data),]
 goles<-function(data, npartido){
 #equipo1
 d<-subset(data, data$pais==first_round$Equipo1[npartido])
-#d_xy<-subset(d, select=c('elo', 'elo_dif','avg_gf','avg_gc' ,'gf'))
-#x<-as.matrix(d_xy[,1:4])
-#y<-as.matrix(d_xy[,5])
-d_xy<-subset(d, select=c('elo', 'elo_dif','avg_gc' ,'gf'))
-x<-as.matrix(d_xy[,1:3])
-y<-as.matrix(d_xy[,4])
+d_xy<-subset(d, select=c('elo', 'elo_dif','avg_gf','avg_gc' ,'gf'))
+x<-as.matrix(d_xy[,1:4])
+y<-as.matrix(d_xy[,5])
+#d_xy<-subset(d, select=c('elo', 'elo_dif','avg_gc' ,'gf'))
+#x<-as.matrix(d_xy[,1:3])
+#y<-as.matrix(d_xy[,4])
 cv<-cv.glmnet(x,y,family="poisson", nfolds=10,alpha=1)
 l<-cv$lambda.min
 alpha=1
 #fit the model
-#p<-matrix(0, nrow=1, ncol=4)
-p<-matrix(0, nrow=1, ncol=3)
+p<-matrix(0, nrow=1, ncol=4)
+#p<-matrix(0, nrow=1, ncol=3)
 p[1,1]<-first_round$elo1[npartido]
 p[1,2]<-first_round$elo_dif1[npartido]
-#p[1,3]<-first_round$avg_gf1[npartido]
-#p[1,4]<-first_round$avg_gc1[npartido]
-p[1,3]<-first_round$avg_gc1[npartido]
+p[1,3]<-first_round$avg_gf1[npartido]
+p[1,4]<-first_round$avg_gc1[npartido]
+#p[1,3]<-first_round$avg_gc1[npartido]
 fits<- glmnet( x, y, family="poisson", alpha=alpha, nlambda=100)
 res1 <- predict(fits, newx=p,s=l, type="response")
 if (res1[1,1]-as.numeric(first_round$Equipo1_bet[npartido])>0){res1_bet<-res1[1,1]-as.numeric(first_round$Equipo1_bet[npartido])}else{res1_bet<-0}
@@ -68,23 +68,23 @@ if (res1[1,1]-as.numeric(first_round$Equipo1_bet[npartido])>0){goles_pais1<-roun
 #prob_pais1<-res1[1,1]
 #equipo2
 d<-subset(data, data$pais==first_round$Equipo2[npartido])
-#d_xy<-subset(d, select=c('elo', 'elo_dif','avg_gf','avg_gc' ,'gf'))
-#x<-as.matrix(d_xy[,1:4])
-#y<-as.matrix(d_xy[,5])
-d_xy<-subset(d, select=c('elo', 'elo_dif','avg_gc' ,'gf'))
-x<-as.matrix(d_xy[,1:3])
-y<-as.matrix(d_xy[,4])
+d_xy<-subset(d, select=c('elo', 'elo_dif','avg_gf','avg_gc' ,'gf'))
+x<-as.matrix(d_xy[,1:4])
+y<-as.matrix(d_xy[,5])
+#d_xy<-subset(d, select=c('elo', 'elo_dif','avg_gc' ,'gf'))
+#x<-as.matrix(d_xy[,1:3])
+#y<-as.matrix(d_xy[,4])
 cv<-cv.glmnet(x,y,family="poisson", nfolds=10,alpha=1)
 l<-cv$lambda.min
 alpha=1
 #fit the model
-#p<-matrix(0, nrow=1, ncol=4)
-p<-matrix(0, nrow=1, ncol=3)
+p<-matrix(0, nrow=1, ncol=4)
+#p<-matrix(0, nrow=1, ncol=3)
 p[1,1]<-first_round$elo2[npartido]
 p[1,2]<-first_round$elo_dif2[npartido]
-#p[1,3]<-first_round$avg_gf2[npartido]
-#p[1,4]<-first_round$avg_gc1[npartido]
-p[1,3]<-first_round$avg_gc1[npartido]
+p[1,3]<-first_round$avg_gf2[npartido]
+p[1,4]<-first_round$avg_gc1[npartido]
+#p[1,3]<-first_round$avg_gc1[npartido]
 fits<- glmnet( x, y, family="poisson", alpha=alpha, nlambda=100)
 res2 <- predict(fits, newx=p,s=l, type="response")
 if (res2[1,1]-as.numeric(first_round$Equipo2_bet[npartido])>0){res2_bet<-res2[1,1]-as.numeric(first_round$Equipo2_bet[npartido])}else{res2_bet<-0}
@@ -152,6 +152,8 @@ first_round$Equipo1_glmnet[1]<-3
 first_round$Equipo2_glmnet[1]<-1
 first_round$Equipo1_glmnet[2]<-1
 first_round$Equipo2_glmnet[2]<-0
+first_round$Equipo1_glmnet[3]<-0
+first_round$Equipo2_glmnet[3]<-0
 first_round$Equipo1_glmnet[7]<-1
 first_round$Equipo2_glmnet[7]<-5
 first_round$Equipo1_glmnet[8]<-3
@@ -176,6 +178,10 @@ first_round$Equipo1_glmnet[37]<-4
 first_round$Equipo2_glmnet[37]<-0
 first_round$Equipo1_glmnet[38]<-1
 first_round$Equipo2_glmnet[38]<-2
+first_round$Equipo1_glmnet[43]<-2
+first_round$Equipo2_glmnet[43]<-1
+first_round$Equipo1_glmnet[44]<-1
+first_round$Equipo2_glmnet[44]<-1
 first_round$Equipo1_p[1]<-3
 first_round$Equipo2_p[1]<-0
 first_round$Equipo1_p[2]<-3
@@ -203,20 +209,26 @@ first_round$Equipo2_p[32]<-1
 first_round$Equipo1_p[37]<-3
 first_round$Equipo1_p[38]<-0
 first_round$Equipo2_p[38]<-3
+first_round$Equipo1_p[3]<-1
+first_round$Equipo2_p[3]<-1
+first_round$Equipo1_p[43]<-3
+first_round$Equipo2_p[43]<-0
+first_round$Equipo1_p[44]<-1
+first_round$Equipo2_p[44]<-1
 #######################################################
- 
 tabla<-NULL
  for (i in seq(1,32)){
 	tabla$Equipo[i]<-pais_wc[i]
 	tabla$puntos[i]<-sum(as.numeric(first_round$Equipo1_p[first_round$Equipo1==pais_wc[i]]),as.numeric(first_round$Equipo2_p[first_round$Equipo2==pais_wc[i]]))
+	tabla$pj[i]<-sum(length(first_round$Equipo1[first_round$Equipo1==pais_wc[i]]),length(first_round$Equipo2[first_round$Equipo2==pais_wc[i]]))
 	tabla$gf[i]<-sum(as.numeric(first_round$Equipo1_glmnet[first_round$Equipo1==pais_wc[i]]),as.numeric(first_round$Equipo2_glmnet[first_round$Equipo2==pais_wc[i]]))
 	tabla$gc[i]<-sum(as.numeric(first_round$Equipo2_glmnet[first_round$Equipo1==pais_wc[i]]),as.numeric(first_round$Equipo1_glmnet[first_round$Equipo2==pais_wc[i]]))
+	tabla$gd[i]<-tabla$gf[i]-tabla$gc[i]
 	tabla$grupo[i]<-temp$grupo_wc[temp$pais_wc==pais_wc[i]]
- }
- 
 
+ }
 tabla<-as.data.frame(tabla,stringsAsFactors=FALSE)
-tabla<-tabla[with(tabla,order(puntos, gf, gc,decreasing=TRUE)),]
+tabla<-tabla[with(tabla,order(pj,puntos, gd, gf,gc,decreasing=TRUE)),]
 #######################################################################################
 #octavos
 first_round$Equipo1[49]<-as.character(head(tabla$Equipo[tabla$grupo=='1'],2)[1])
@@ -242,9 +254,9 @@ for (i in seq(49,56)){
 	first_round$elo_dif1[i]<-first_round$elo1[i]-first_round$elo2[i]
 	first_round$elo_dif2[i]<--first_round$elo_dif1[i]
 	first_round$avg_gc1[i]<-as.numeric(head(first_round$avg_gc1[first_round$Equipo1==first_round$Equipo1[i]],1))
-	#first_round$avg_gf1[i]<-as.numeric(head(first_round$avg_gf1[first_round$Equipo1==first_round$Equipo1[i]],1))
+	first_round$avg_gf1[i]<-as.numeric(head(first_round$avg_gf1[first_round$Equipo1==first_round$Equipo1[i]],1))
 	first_round$avg_gc2[i]<-as.numeric(head(first_round$avg_gc2[first_round$Equipo1==first_round$Equipo2[i]],1))
-	#first_round$avg_gf2[i]<-as.numeric(head(first_round$avg_gf2[first_round$Equipo1==first_round$Equipo2[i]],1))
+	first_round$avg_gf2[i]<-as.numeric(head(first_round$avg_gf2[first_round$Equipo1==first_round$Equipo2[i]],1))
 }
 
 for (i in seq(49,56)){
@@ -287,9 +299,9 @@ for (i in seq(57,60)){
 	first_round$elo_dif1[i]<-first_round$elo1[i]-first_round$elo2[i]
 	first_round$elo_dif2[i]<--first_round$elo_dif1[i]
 	first_round$avg_gc1[i]<-as.numeric(head(first_round$avg_gc1[first_round$Equipo1==first_round$Equipo1[i]],1))
-	#first_round$avg_gf1[i]<-as.numeric(head(first_round$avg_gf1[first_round$Equipo1==first_round$Equipo1[i]],1))
+	first_round$avg_gf1[i]<-as.numeric(head(first_round$avg_gf1[first_round$Equipo1==first_round$Equipo1[i]],1))
 	first_round$avg_gc2[i]<-as.numeric(head(first_round$avg_gc2[first_round$Equipo1==first_round$Equipo2[i]],1))
-	#first_round$avg_gf2[i]<-as.numeric(head(first_round$avg_gf2[first_round$Equipo1==first_round$Equipo2[i]],1))
+	first_round$avg_gf2[i]<-as.numeric(head(first_round$avg_gf2[first_round$Equipo1==first_round$Equipo2[i]],1))
 }
 
 for (i in seq(57,60)){
@@ -352,4 +364,84 @@ for (i in seq(61,62)){
  }
 
 ############
+############
+##63 3er
+if (first_round$prob1_glmnet[61]<first_round$prob2_glmnet[61]){first_round$Equipo1[63]<-first_round$Equipo1[61]}else {first_round$Equipo1[63]<-first_round$Equipo2[61]}
+if (first_round$prob1_glmnet[62]<first_round$prob2_glmnet[62]){first_round$Equipo2[63]<-first_round$Equipo1[62]}else{first_round$Equipo2[63]<-first_round$Equipo2[62]}
 
+####ELO
+first_round$elo1[63]<-as.numeric(head(first_round$elo1[first_round$Equipo1==first_round$Equipo1[63]],1))
+first_round$elo2[63]<-as.numeric(head(first_round$elo2[first_round$Equipo2==first_round$Equipo2[63]],1))
+first_round$elo_dif1[63]<-first_round$elo1[63]-first_round$elo2[63]
+first_round$elo_dif2[63]<--first_round$elo_dif1[63]
+first_round$avg_gc1[63]<-as.numeric(head(first_round$avg_gc1[first_round$Equipo1==first_round$Equipo1[63]],1))
+first_round$avg_gf1[63]<-as.numeric(head(first_round$avg_gf1[first_round$Equipo1==first_round$Equipo1[63]],1))
+first_round$avg_gc2[63]<-as.numeric(head(first_round$avg_gc2[first_round$Equipo2==first_round$Equipo2[63]],1))
+first_round$avg_gf2[63]<-as.numeric(head(first_round$avg_gf2[first_round$Equipo2==first_round$Equipo2[63]],1))
+
+t<-goles(data,63)
+first_round$Equipo1_glmnet[63]<-t$goles[1]
+first_round$Equipo2_glmnet[63]<-t$goles[2]
+first_round$prob1_glmnet[63]<-t$prob[1]
+first_round$prob2_glmnet[63]<-t$prob[2]
+ if (max(t$prob[1],t$prob[2],(1-t$prob[1]-t$prob[2]))==t$prob[1]){
+	first_round$Equipo1_p[63]<-3
+	first_round$Equipo2_p[63]<-0
+	}
+ if (max(t$prob[1],t$prob[2],(1-t$prob[1]-t$prob[2]))==t$prob[2]){
+	first_round$Equipo2_p[63]<-3
+	first_round$Equipo1_p[63]<-0
+	} 
+ if (max(t$prob[1],t$prob[2],(1-t$prob[1]-t$prob[2]))==(1-t$prob[1]-t$prob[2])){
+	first_round$Equipo1_p[63]<-1
+	first_round$Equipo2_p[63]<-1
+	}
+############
+##64
+if (first_round$prob1_glmnet[61]>first_round$prob2_glmnet[61]){first_round$Equipo1[64]<-first_round$Equipo1[61]}else {first_round$Equipo1[64]<-first_round$Equipo2[61]}
+if (first_round$prob1_glmnet[62]>first_round$prob2_glmnet[62]){first_round$Equipo2[64]<-first_round$Equipo1[62]}else
+{first_round$Equipo2[64]<-first_round$Equipo2[62]}
+
+####ELO
+first_round$elo1[64]<-as.numeric(head(first_round$elo1[first_round$Equipo1==first_round$Equipo1[64]],1))
+first_round$elo2[64]<-as.numeric(head(first_round$elo2[first_round$Equipo2==first_round$Equipo2[64]],1))
+first_round$elo_dif1[64]<-first_round$elo1[64]-first_round$elo2[64]
+first_round$elo_dif2[64]<--first_round$elo_dif1[64]
+first_round$avg_gc1[64]<-as.numeric(head(first_round$avg_gc1[first_round$Equipo1==first_round$Equipo1[64]],1))
+first_round$avg_gf1[64]<-as.numeric(head(first_round$avg_gf1[first_round$Equipo1==first_round$Equipo1[64]],1))
+first_round$avg_gc2[64]<-as.numeric(head(first_round$avg_gc2[first_round$Equipo2==first_round$Equipo2[64]],1))
+first_round$avg_gf2[64]<-as.numeric(head(first_round$avg_gf2[first_round$Equipo2==first_round$Equipo2[64]],1))
+
+ t<-goles(data,64)
+ first_round$Equipo1_glmnet[64]<-t$goles[1]
+ first_round$Equipo2_glmnet[64]<-t$goles[2]
+ first_round$prob1_glmnet[64]<-t$prob[1]
+ first_round$prob2_glmnet[64]<-t$prob[2]
+ if (max(t$prob[1],t$prob[2],(1-t$prob[1]-t$prob[2]))==t$prob[1]){
+	first_round$Equipo1_p[64]<-3
+	first_round$Equipo2_p[64]<-0
+	}
+ if (max(t$prob[1],t$prob[2],(1-t$prob[1]-t$prob[2]))==t$prob[2]){
+	first_round$Equipo2_p[64]<-3
+	first_round$Equipo1_p[64]<-0
+	}
+ if (max(t$prob[1],t$prob[2],(1-t$prob[1]-t$prob[2]))==(1-t$prob[1]-t$prob[2])){
+	first_round$Equipo1_p[64]<-1
+	first_round$Equipo2_p[64]<-1
+	}	 
+
+#tabla final
+tabla<-NULL
+ for (i in seq(1,32)){
+	tabla$Equipo[i]<-pais_wc[i]
+	tabla$puntos[i]<-sum(as.numeric(first_round$Equipo1_p[first_round$Equipo1==pais_wc[i]]),as.numeric(first_round$Equipo2_p[first_round$Equipo2==pais_wc[i]]))
+	tabla$pj[i]<-sum(length(first_round$Equipo1[first_round$Equipo1==pais_wc[i]]),length(first_round$Equipo2[first_round$Equipo2==pais_wc[i]]))
+	tabla$gf[i]<-sum(as.numeric(first_round$Equipo1_glmnet[first_round$Equipo1==pais_wc[i]]),as.numeric(first_round$Equipo2_glmnet[first_round$Equipo2==pais_wc[i]]))
+	tabla$gc[i]<-sum(as.numeric(first_round$Equipo2_glmnet[first_round$Equipo1==pais_wc[i]]),as.numeric(first_round$Equipo1_glmnet[first_round$Equipo2==pais_wc[i]]))
+	tabla$gd[i]<-tabla$gf[i]-tabla$gc[i]
+	tabla$grupo[i]<-temp$grupo_wc[temp$pais_wc==pais_wc[i]]
+
+ }
+tabla<-as.data.frame(tabla,stringsAsFactors=FALSE)
+tabla<-tabla[with(tabla,order(pj,puntos, gd, gf,gc,decreasing=TRUE)),]
+#write.table(tabla,'2006_glmnet.txt' ,sep='\t')
