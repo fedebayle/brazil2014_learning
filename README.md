@@ -14,7 +14,7 @@ Data were collected from [World Football Elo Ratings] (http://www.eloratings.net
 
 ###Modeling##
 I used Poisson regression to model the number of goals each team for each game considering the opponent.
-The number of goals in each case was estimated by simulating 100k times a Poisson distribution with these regressions estimated by lambda parameter.
+The number of goals in each case was estimated by simulating 100k times a Poisson distribution with corresponding lambdas estimated by those regressions.
 
 In each regression, smoothing constant was calculated by cross validation technique using 10 folds.
 
