@@ -1,7 +1,7 @@
 brazil2014_model
 ================
 
-Predictive model for football World Cup Brazil 2014
+Predictive model for World Cup Brazil 2014
 ---------------------------------------------------
 
 I developed a statistical model to predict the final standings of the World Cup Brazil 2014 using R with the library [glmnet] (http://cran.r-project.org/web/packages/glmnet/index.html).
