@@ -1,0 +1,33 @@
+Posicion	Pais
+1	Brasil
+2	Argentina
+3	Alemania
+4	Holada
+5	Francia
+6	Italia
+7	Inglaterra
+8	Portugal
+9	Colombia
+10	Belgica
+11	Bosnia y Herzegovina
+12	Costa de Marfil
+13	Suiza
+14	Croacia
+15	España
+16	Rusia
+17	Corea del Sur
+18	Mexico
+19	Chile
+20	Ecuador
+21	Japon
+22	Estados Unidos
+23	Costa Rica
+24	Nigeria
+25	Iran
+26	Argelia
+27	Uruguay
+28	Ghana
+29	Grecia
+30	Australia
+31	Honduras
+32	Camerun
